@@ -1,9 +1,10 @@
-# Expected arguments: $SERVICENAME $MACHINE $DOMAIN $USERNAME $PASSWORD
+# Expected arguments: "$SERVICENAME" $MACHINE $USERNAME $PASSWORD $[1]$PASSWORD
 $apiKey = '939fbb0dd3d4100cc7a0f8a3e7d02647'
 $profileName = $args[0]
 $baseUrl = $args[1]
-$username = $args[2], $args[3] -join '\'
-$password = $args[4]
+$username = $args[2]
+$password = $args[3]
+$enablePassword = $args[4]
 
 $filtercontent = @{
     groupOp = 'AND'
@@ -30,18 +31,18 @@ $body = @{
     PROFILEID             = $profileId
     PROFILENAME           = $profileName
     PROFILEDESCRIPTION    = $description
-    telnet_loginname      = $username
-    telnet_password       = $password
-    telnet_prompt         = '#'
+    telnet_loginname      = ''
+    telnet_password       = ''
+    telnet_prompt         = ''
     telnet_enableUserName = ''
     telnet_enablepassword = ''
     telnet_enableprompt   = ''
-    ssh_loginname         = ''
-    ssh_password          = ''
-    ssh_prompt            = ''
+    ssh_loginname         = $username
+    ssh_password          = $password
+    ssh_prompt            = '>'
     ssh_enableUserName    = ''
-    ssh_enablepassword    = ''
-    ssh_enableprompt      = ''
+    ssh_enablepassword    = $enablePassword
+    ssh_enableprompt      = '#'
     snmp_version          = '0'
     snmp_readcommunity    = ''
     snmp_writecommunity   = ''
