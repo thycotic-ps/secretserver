@@ -17,6 +17,10 @@ Secret Server advanced features allow you to put workflows and various restricti
 
 The following items must be in place on your Secret Server for the Event Pipeline to be implemented appropriately.
 
+### PowerShell Module
+
+This utilizes the [Thycotic.SecretServer PowerShell module](https://thycotic-ps.github.io/thycotic.secretserver/docs/install), this will need to be installed on all web nodes or Distributed Engines.
+
 ### Sync Field
 
 A **Sync** field must be added to the parent's Secret Template with the **Type** set to **Notes**. You can configure this field to allow only the Owner to provide the child secrets that are synchronized.
