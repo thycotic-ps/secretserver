@@ -32,7 +32,7 @@ The account used within these scripts must be able to connect to the device thro
 
     | Order | Field                                   | Value                     | Pause |
     | ----- | --------------------------------------- | ------------------------- | ----- |
-    | 1     | racadm get iDRAC.Users.$USERID.UserName | Get Username for a UserId | 5000  |
+    | 1     | get iDRAC.Users.$USERID.UserName        | Get Username for a UserId | 5000  |
     | 2     | $$CHECKCONTAINS $USERNAME               | Validate username         | 2000  |
 
 3. Under _Password Changed Commands_
@@ -40,7 +40,7 @@ The account used within these scripts must be able to connect to the device thro
 
     | Order | Field                                                | Value                                      | Pause |
     | ----- | ---------------------------------------------------- | ------------------------------------------ | ----- |
-    | 1     | racadm set iDRAC.Users.$Userid.Password $NewPassword | Change the password for a user with UserId | 5000  |
+    | 1     | set iDRAC.Users.$Userid.Password $NewPassword        | Change the password for a user with UserId | 5000  |
     | 2     | $$CHECKCONTAINS Object value modified successfully   | Validate password has been changed         | 2000  |
 
 ## Create Dell iDRAC (SSH) Template
@@ -60,4 +60,4 @@ The account used within these scripts must be able to connect to the device thro
 13. Click drop-down for _Password_, select **Password**
 14. Click **Save**
 
-Proceed to create a new secret and test/verify the HB and RPC function correctly.
+Proceed to create a new secret and test/verify the HB and RPC function correctly. The secret will need the user's id from the drac. Usually the root user is configured as #2. This can be confirmed in the web UI in overview -> iDRAC settings -> User Authentication.
