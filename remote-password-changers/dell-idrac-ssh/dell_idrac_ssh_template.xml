@@ -11,6 +11,7 @@
       <isurl>false</isurl>
       <ispassword>false</ispassword>
       <isnotes>false</isnotes>
+      <listtype />
       <isfile>false</isfile>
       <passwordcharacterset />
       <passwordlength>-1</passwordlength>
@@ -29,6 +30,7 @@
       <isurl>false</isurl>
       <ispassword>false</ispassword>
       <isnotes>false</isnotes>
+      <listtype />
       <isfile>false</isfile>
       <passwordcharacterset />
       <passwordlength>-1</passwordlength>
@@ -47,6 +49,7 @@
       <isurl>false</isurl>
       <ispassword>true</ispassword>
       <isnotes>false</isnotes>
+      <listtype />
       <isfile>false</isfile>
       <passwordcharacterset />
       <passwordlength>-1</passwordlength>
@@ -65,6 +68,7 @@
       <isurl>false</isurl>
       <ispassword>false</ispassword>
       <isnotes>false</isnotes>
+      <listtype />
       <isfile>false</isfile>
       <passwordcharacterset />
       <passwordlength>-1</passwordlength>
@@ -76,6 +80,25 @@
       <hideonview>false</hideonview>
     </field>
     <field isexpirationfield="false">
+      <displayname>Management URL</displayname>
+      <description>WebUI for iDRAC</description>
+      <name>Management URL</name>
+      <mustencrypt>true</mustencrypt>
+      <isurl>true</isurl>
+      <ispassword>false</ispassword>
+      <isnotes>false</isnotes>
+      <listtype />
+      <isfile>false</isfile>
+      <passwordcharacterset />
+      <passwordlength>-1</passwordlength>
+      <historylength>2147483647</historylength>
+      <isindexable>true</isindexable>
+      <editablepermission>2</editablepermission>
+      <required>false</required>
+      <fieldslugname>management-url</fieldslugname>
+      <hideonview>false</hideonview>
+    </field>
+    <field isexpirationfield="false">
       <displayname>Notes</displayname>
       <description>Notes</description>
       <name>Notes</name>
@@ -83,6 +106,7 @@
       <isurl>false</isurl>
       <ispassword>false</ispassword>
       <isnotes>true</isnotes>
+      <listtype />
       <isfile>false</isfile>
       <passwordcharacterset />
       <passwordlength>-1</passwordlength>
