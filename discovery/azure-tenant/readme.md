@@ -10,6 +10,12 @@ This script is utilized to Discovery privileged Azure AD accounts for a given Az
 
 The general use for this custom Discovery process is for those tenants that are not being managed by [Azure Privileged Identity Management (PIM)](https://docs.microsoft.com/en-us/azure/active-directory/privileged-identity-management/pim-configure), or with customers that are not interested in using that service. Customers that are using it should be aware that Service Administrator and Co-Administrator are both assignment roles that [cannot be managed by PIM](https://docs.microsoft.com/en-us/azure/active-directory/privileged-identity-management/pim-roles#classic-subscription-administrator-roles).
 
+> :triangular_flag_on_post:  
+> Currently this integration relies on the Az 6.x cmdlets which leverage the AzureAD Graph API. This API is currently EoL and will no longer return responses after June 30th, 2022. FMI please see [this blog post](https://techcommunity.microsoft.com/t5/azure-tools-blog/why-is-az-7-an-important-release-for-azure-powershell/ba-p/3035513). 
+> 
+
+
+
 ## Prerequisite
 
 The following modules are required for this script to run. The modules listed below should be installed on all Distributed Engines or Web Nodes (if doing web processing on-premises):
