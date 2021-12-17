@@ -15,7 +15,7 @@ $privUsername = $args[1]
 $privPassword = ConvertTo-SecureString -String $args[2] -AsPlainText -Force
 $tenantId = $args[3].Trim('OU=')
 
-$privUsername = "$privUsername@$privDomain"
+if ($null -ne $privDomain){$privUsername = "$privUsername@$privDomain"}
 $tenantCred = [pscredential]::new($privUsername,$privPassword)
 
 $fileName = "azure_ad_discovery_$(Get-Date -Format FileDateTime).log"
