@@ -10,6 +10,18 @@ This script is utilized to Discovery privileged Azure AD accounts for a given Az
 
 The general use for this custom Discovery process is for those tenants that are not being managed by [Azure Privileged Identity Management (PIM)](https://docs.microsoft.com/en-us/azure/active-directory/privileged-identity-management/pim-configure), or with customers that are not interested in using that service. Customers that are using it should be aware that Service Administrator and Co-Administrator are both assignment roles that [cannot be managed by PIM](https://docs.microsoft.com/en-us/azure/active-directory/privileged-identity-management/pim-roles#classic-subscription-administrator-roles).
 
+## Terms/Features:
+
+- Distributed Engine – The main reason for this requirement is because the discovery script needs 2 different privileged accounts to accomplish this feature.
+    1. One account runs the PowerShell script.
+    2. One account authenticates to AzureAD.
+
+This may be accomplished without a DE, but it would be best practice to have this running from the DE rather than the WebNode. There will be some configurations on the DE itself as well as within SS.
+Scripts, Scan Templates, Discovery Scan Templates, Scanner Settings, Remote Password Changers – All items that will need creation and/or configuration within SS.
+Azure Terms:
+- Assigned Roles – Roles required for account performing Azure AD discovery.
+- Azure Role Assignments (aka Subscriptions) – **This could be optional, but I need to validate**.  Your tenant must be able to add subscriptions (the only one req’d is ‘Reader’, and it appears to be free)
+
 ## Prerequisite
 
 The following modules are required for this script to run. The modules listed below should be installed on all Distributed Engines or Web Nodes (if doing web processing on-premises):
@@ -33,7 +45,41 @@ The script will log to the provided directory in the script (defaults to `C:\thy
 
 The script includes a process to clean up the logs and will keep *the last 10 based on LastWriteTime*.
 
+## Azure Prep
+
+   1. From your tenant, create a new user that will be the discovery account.
+   
+        a.	Add the Assigned Role of “Directory Readers” to the account:
+        ![image](https://user-images.githubusercontent.com/84103738/153434617-2a41039a-8b43-4e4a-88a4-c8adeed1eb12.png)
+        
+        b.	Make sure you login once to change the password, as there is not a setting to disable force pwd change on first login. Discovery will fail and throw an error if this pwd is not changed.
+        
+   2. If necessary, add the “Reader” to the “Azure Role Assignments” (access this from left nav for the User). See this link from MS about subscriptions, https://docs.microsoft.com/en-us/azure/role-based-access-control/rbac-and-directory-admin-roles.
+   3. If creating new privileged accounts in Azure AD to be discovered, be sure to login once to change the initial login pwd or Heartbeats will fail after import.
+
+
 ## Secret Server Configuration
+
+### Distributed Engine Prep
+
+   1. If you do not have a DE installed see https://docs.delinea.com/secrets/current/secret-server-cloud/quick-start/index.md#distributed_engine for instructions on installing and configuring this.
+    
+       a. Rabbit MQ - https://docs.delinea.com/secrets/current/secret-server-setup/installation/installing-rabbitmq
+       
+       b. DE - https://docs.delinea.com/secrets/current/networking/distributed-engines/index.md 
+   2. In an elevated PowerShell session, perform the following:
+    
+       a. Install the following modules (use the following syntax: ‘Install-Module ModuleName’):
+       
+            i. AzureAD
+            ii. Az.Accounts
+            iii. Az.Resources
+         
+       b. Run ‘Enable-PSRemoting’ (see https://docs.delinea.com/secrets/current/api-scripting/configuring-winrm-powershell for more information on this)
+            NOTE:  Many folks have had issues when attempting to run this. If there are issues, just run the individual command in the link above.
+            Also, here is the link on the cmdlet from MS’ site, https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/enable-psremoting?view=powershell-7.2 
+       
+       c. Configure CredSSP for WinRM - https://docs.delinea.com/secrets/current/authentication/configuring-credssp-for-winrm-with-powershell/index.md#configuring_credssp_for_winrm_on_the_secret_server_machine
 
 ### Create Scripts
 
@@ -46,10 +92,23 @@ The script includes a process to clean up the logs and will keep *the last 10 ba
     | Description | Discovery members of privileged roles in Azure AD and Owner assignment to the Subscription |
     | Category    | Dependency                                                                                 |
     | Script      | [discovery-azure-privileged.ps1](discovery-azure-privileged.ps1)                           |
+    
+    *NOTE*:  If this account does not have any SubscriptionAccounts, the script will error out.  To mitigate this, comment out the following lines of code (comment blocks in PowerShell begin with <# and end with #>).  It is around lines 75-83:
 
-1. Select **OK**
+```powershell
+foreach ($role in $AzureSubRoles) {
+    try {
+        $discoveredSubAccounts = Get-AzRoleAssignment -RoleDefinitionName $role -IncludeClassicAdministrators | Where-Object { $_.SignInName -notlike "*#EXT#*" -and -not [string]::IsNullOrEmpty($_.SignInName) } | Select-Object ObjectId, ObjectType, DisplayName, SignInName, @{L = 'MemberOf';E = { $_.RoleDefinitionName } }
+        Add-Content -Path $logFile -Value "Successfully retrieved [$role] assignments on Tenant [$tenantId]" -ErrorAction SilentlyContinue
+    } catch {
+        Add-Content -Path $logFile -Value "Issue retrieved [$role] assignments on Tenant [$tenantId]: $($_)" -ErrorAction SilentlyContinue
+        throw "Issue retreiving [$role] assignments on Tenant [$tenantId]"
+    }
+}
+```
+3. Select **OK**
 
-### Configure Discovery
+### Configure Discovery, Create the Scan Templates, and Discovery Scanners 
 
 #### Host Ranges Template
 
@@ -70,7 +129,7 @@ The script includes a process to clean up the logs and will keep *the last 10 ba
     | ---------- | ------------------------ | ---------------------- |
     | TenantId   | HostRange (not editable) | Checked (not editable) |
 
-1. Click **Save**
+1. Click **Save**  
 
 #### Accounts Template
 
@@ -78,7 +137,7 @@ The script includes a process to clean up the logs and will keep *the last 10 ba
 1. Navigate to **Accounts** tab
 1. Click **Create New Scan Template** (_see table below_)
 
-    > For import purpose the name of this scanner must match the Secret Template, `Office 365 Account` (or other name if using a custom Secret Template).
+    > For import purpose the name of this scanner must match the Secret Template, `Office 365 Account` (or other name if using a custom Secret Template).  If this name must differ, see step 6 titled: “Configure Password Changing Edit Scan Template.”
 
     | Field                | Value                  |
     | -------------------- | ---------------------- |
@@ -99,9 +158,25 @@ The script includes a process to clean up the logs and will keep *the last 10 ba
 
 1. Click **Save**
 
+1. Configure Password Changing Edit Scan Template:
+
+    a. Go to “Admin | Remote Password Changing:
+    
+    b. Click “Configure Password Changers”
+    
+    c. Select Password Type Name “Office365”
+    
+    d. Scroll down and click “Configure Scan Template”
+    
+    e. Click “Edit”
+    
+    f. Under “Scan Template to use”, select the name of the scan template as you titled it under section iii above, if you called it something different.
+    
+    g. Change any corresponding fields to match the Secret Template as appropriate (ex.  ‘Type’ and ‘MemberOf’ are not default fields in the o365 Secret Template.  Add those fields to the Secret Template if you want to import/use them.)
+
 #### Host Range Scanner
 
-1. Navigate to **Admin | Discovery | Configuration (tab) | Extensible Discovery | Configure Discovery Scanners**
+1. Navigate to **Admin | Discovery | Configuration (tab) | Extensible Discovery | Configure Discovery Scanners (button)**
 1. Navigate to the **Host Ranges** tab
 1. Click **Create New Scanner** (_see table below_)
 
@@ -119,7 +194,7 @@ The script includes a process to clean up the logs and will keep *the last 10 ba
 
 #### Accounts Scanner
 
-1. Navigate to **Admin | Discovery | Configuration (tab) |  Extensible Discovery | Configure Discovery Scanners**
+1. Navigate to **Admin | Discovery | Configuration (tab) |  Extensible Discovery | Configure Discovery Scanners (button)**
 1. Navigate to the **Accounts** tab
 1. Click **Create New Scanner** (_see table below_)
 
