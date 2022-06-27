@@ -14,8 +14,8 @@ SELECT
         WHEN ca.[ScanItemTemplateId] = 13 AND ca.[IsLocalAdministrator] = 0 THEN 'Standard_User'
     END AS 'Account Privilege'
     ,CASE
-        WHEN ca.[ScanItemTemplateId] =13 AND ca.[IsLocalAdministrator] = 1 THEN 'Yes'
-        WHEN ca.[ScanItemTemplateId] =13 AND ca.[IsLocalAdministrator] =0 THEN 'No'
+        WHEN ca.[ScanItemTemplateId] =13 AND ca.[HasLocalAdminRights] = 1 THEN 'Yes'
+        WHEN ca.[ScanItemTemplateId] =13 AND ca.[HasLocalAdminRights] = 0 THEN 'No'
     END AS 'Has Local Admin Rights'
     ,CASE WHEN ca.[PasswordLastSet] IS NULL THEN 'Never'
         ELSE CONVERT(NVARCHAR,ca.[PasswordLastSet])
@@ -31,4 +31,5 @@ INNER JOIN tbOrganizationUnit AS ou ON c.[OrganizationUnitId] = ou.[Organization
 INNER JOIN tbScanItemTemplate AS st ON ca.[ScanItemTemplateId] = st.[ScanItemTemplateId]
 INNER JOIN tbDiscoverySource AS ds ON c.[DiscoverySourceId] = ds.[DiscoverySourceId]
 LEFT OUTER JOIN tbSecret AS s ON s.[ComputerAccountId] = ca.[ComputerAccountId]
+
 ORDER BY c.[ComputerName] ASC
