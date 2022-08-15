@@ -57,7 +57,7 @@ The minimum permission required to find SQL Logins on a SQL Server instance is `
 | ------------ | -------------------------------- |
 | Name | SQL Login Discovery |
 | Description | Discovery SQL Logins on the target machine |
-| Category | Dependency |
+| Category | Discovery Scanner |
 | Script | Paste contents of the desired script [discovery-sqllogin-all.ps1](discovery-sqllogin-all.ps1) or [discovery-sqllogin-privonly.ps1](discovery-sqllogin-privonly.ps1) |
 
 ### Create Discovery Scanner
