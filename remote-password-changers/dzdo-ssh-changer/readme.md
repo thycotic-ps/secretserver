@@ -4,7 +4,7 @@ This document provides the details for having Secret Server manage local user pa
 
 # Permissions
 
-The account used must be able to connect to the device through SSH and execute the listed commands
+The account used must be able to connect to the device through SSH and execute the listed commands. You can require password reentry for the dzdo command or not. Just modify the password changer to fit your situation
 
 # Setup
 
