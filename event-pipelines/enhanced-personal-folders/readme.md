@@ -14,7 +14,7 @@ Must be enabled as we leverage the REST API.
 
 **SecretServer application account**
 
-This can be either a local account or a domain based account. If you use a domain account, then SecretServer can be used to rotate the credentials. This account will also need to have a secret with the credentials. This account cannot have MFA enabled on it, but can be restricted by IP address. 
+This can be either a local account or a domain based account. This account will also need to have a secret with the credentials. This account cannot have MFA enabled on it, but can be restricted by IP address. A domain account is preferred as SecretServer can be used to rotate the credentials.
 
 ---
 # Configuration Steps
@@ -43,8 +43,7 @@ This can be either a local account or a domain based account. If you use a domai
 
 ### Webservices
 
-> Webservices will enable other applications to interact with Secret
-> Server via API calls.
+> Webservices will enable other applications to interact with Secret Server via API calls.
 
 a.  Navigate to **Admin \| Configuration \| General** tab and **Edit** to **Enable Webservices**. Check the box, then click **Save**.
 
@@ -52,8 +51,13 @@ a.  Navigate to **Admin \| Configuration \| General** tab and **Edit** to *
 
 ### Create group to leverage for pipeline
 
-You can create a new group or use an existing group that users are added to. 
->**Note** The everyone group cannot be used for this example as all users are members of the group and its membership cannot be modified. 
+You can create a new local group or use an existing local group that users are added to. 
+
+
+> :warning: **The local Everyone group cannot be used** for this example as all users are members of the group and its membership cannot be modified. 
+
+
+> :warning: **Domain groups cannot be used** for with triggers based on membership changes. Secret Server does not get a notification about membership changes when performing a sync so the EP will not be triggered.
 
 ### Create Top Level Folder and disable Personal Folders
 
@@ -68,14 +72,16 @@ You can create a new group or use an existing group that users are added to.
 
 This solution will require an application account to be used by the script. The application account will need to have appropriate permissions to create and manage folders. To create a new Application Account, follow these steps:
 
-1. Create a new User Account: Go to **Admin \| Users \| Create New**, then fill in **Names** for the account and click **Advanced*. Check the **Application Account** box and **Save**.
-1. **Optional:** add [IP address restrictions](https://docs.thycotic.com/ss/11.1.0/admin/encryption-and-security/restricting-ip-addresses/index.md) to the account
-1. Create a new Role for the API Folder Management User, this role should include the following role permissions: `Administer Folders` `View Folders`
-1. Assign the Created Role to the API user
+1. Create a new User Account: 
+- **Local Account**: Go to **Admin \| Users \| Create New**, then fill in **Names** for the account and click **Advanced**. Check the **Application Account** box and **Save**.
+- **Domain Account**: create AD based user and add to sync group to create user. Then open the user account and click **Advanced**. Check the **Application Account** box and **Save**.
+3. **Optional:** add [IP address restrictions](https://docs.delinea.com/secrets/current/users/user-restriction-settings/index.md) to the account
+4. Create a new Role for the API Folder Management User, this role should include the following role permissions: `Administer Folders` `View Folders`
+5. Assign the Created Role to the API user
 
 ### Create Secret for Folder Creation API User
 
-Create a secret using the Password or Active Directory template for the API user. 
+Create a secret using the Password or Active Directory template for the API user. This will be used as an additional secret when defining the task in Event Pipeline
 
 
 ## Event Pipelines
