@@ -12,7 +12,7 @@ $SecretList = $Args[3].split(",")
 $APIUserDomain = $args[4]
 
 #if you need more verbose errors change this to $true and make sure the file path exists
-$debug = $true
+$debug = $false
 $errorfile = "c:\temp\secretDependencyUpdateFailures.csv"
 
 if ($debug) {(get-date).ToString(), "`nPassword Masking Key A = A-Z UPPERCASE / z = a-z lowercase / N = Any digit / ? = Anything else`n", ("Arguments: " + $args.count),(@{
