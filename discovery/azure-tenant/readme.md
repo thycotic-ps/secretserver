@@ -1,3 +1,9 @@
+######################################
+This method does not function with Secret Server.
+USE AT YOUR OWN RISK
+NO SUPPORT IS PROVIDED
+######################################
+
 # Azure Tenant Discovery
 
 This script is utilized to Discovery privileged Azure AD accounts for a given Azure Subscription. The script will include scanning the Azure Active Directory privileged roles and Subscription assignment as recommended by Microsoft:
