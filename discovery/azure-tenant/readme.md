@@ -1,5 +1,5 @@
 ######################################
-# This method does not function with Secret Server.
+# This method might require additional configureation with Secret Server.
 # USE AT YOUR OWN RISK
 # NO SUPPORT IS PROVIDED
 ######################################
