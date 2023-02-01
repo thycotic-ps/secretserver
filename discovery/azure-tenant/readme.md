@@ -1,7 +1,7 @@
 ######################################
-This method does not function with Secret Server.
-USE AT YOUR OWN RISK
-NO SUPPORT IS PROVIDED
+# This method does not function with Secret Server.
+# USE AT YOUR OWN RISK
+# NO SUPPORT IS PROVIDED
 ######################################
 
 # Azure Tenant Discovery
