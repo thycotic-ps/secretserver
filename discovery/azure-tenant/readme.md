@@ -1,5 +1,5 @@
 ######################################
-# This method might require additional configuration with Secret Server.
+# This method might require additional configuration with Secret Server and/or Azure tenant.
 # USE AT YOUR OWN RISK
 # NO SUPPORT IS PROVIDED
 ######################################
