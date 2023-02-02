@@ -12,7 +12,7 @@ The script takes a single parameter of the server hostname and will attempt to g
 2. Enter name: **Windows Computer Restart**
 3. Description: **Script for forcing a computer restart**
 4. Category: **Dependency**
-5. Script: **Copy and Paste** the provided script [restart-windows.ps1](restart-windows.ps1)
+5. Script: **Copy and Paste** one of the scripts [restart-windows.ps1](restart-windows.ps1) / [restart-windows-nocredssp.ps1](restart-windows-nocredssp.ps1)
 6. Click **OK**
 
 ## Create Dependency
@@ -25,5 +25,11 @@ The script takes a single parameter of the server hostname and will attempt to g
 6. Provide a **Dependency Name**
 7. Select a **Run As** secret if required according to your Secret Server configuration
 8. Enter **5** for **Wait(s)**
-9. Arguments enter `$MACHINE`
-10. Click **Save**
+9. For Arguments enter the approriate arguments for your script
+
+| Script | Arguments |
+| ------------- | ------------- |
+| [restart-windows.ps1](restart-windows.ps1) |  `$MACHINE` |
+| [restart-windows-nocredssp.ps1](restart-windows-nocredssp.ps1) | ` $[1]$USERNAME $[1]$DOMAIN $[1]$PASSWORD $MACHINE` |
+
+11. Click **Save**
