@@ -4,7 +4,7 @@ This documents provides the details for configuring a dependency changer to forc
 
 ## Windows Computer Restart
 
-The script takes a single parameter of the server hostname and will attempt to gracefully restart the server.
+This dependecy will attempt to gracefully restart the server. If you use the script that takes a single parameter [credssp](https://docs.delinea.com/secrets/current/authentication/configuring-credssp-for-winrm-with-powershell/index.md) will need to be configured in the environment
 
 ## Create Script
 
