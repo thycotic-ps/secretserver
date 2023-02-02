@@ -1,8 +1,8 @@
-######################################
-# This method might require additional configuration with Secret Server and/or Azure tenant.
-# USE AT YOUR OWN RISK
-# NO SUPPORT IS PROVIDED
-######################################
+# ⚠️ The content (scripts, documentation, examples) included in this repository are provided as-is and do not provide any warranty or support. ⚠️ 
+--
+The entire risk arising out of the code and content's use or performance remains with you. In no event shall maintainers, authors, or anyone else involved in the creation, production, or delivery of the content be liable for any damages whatsoever (including, without limitation, damages for loss of business profits, business interruption, loss of business information, or other pecuniary loss) arising out of the use of or inability to use the code or content.
+
+--
 
 # Azure Tenant Discovery
 
@@ -70,7 +70,7 @@ The script includes a process to clean up the logs and will keep *the last 10 ba
 
    1. If you do not have a DE installed see https://docs.delinea.com/secrets/current/secret-server-cloud/quick-start/index.md#distributed_engine for instructions on installing and configuring this.
     
-       a. Rabbit MQ - https://docs.delinea.com/secrets/current/secret-server-setup/installation/installing-rabbitmq
+       a. (On Prem Only) Rabbit MQ - https://docs.delinea.com/secrets/current/secret-server-setup/installation/installing-rabbitmq
        
        b. DE - https://docs.delinea.com/secrets/current/networking/distributed-engines/index.md 
    2. In an elevated PowerShell session, perform the following:
