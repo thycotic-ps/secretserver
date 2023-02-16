@@ -32,5 +32,5 @@ VEEAM utilizes a [PowerShell Snap-in](https://helpcenter.veeam.com/docs/backup/p
 9. Arguments enter `$[1]$USERNAME $[1]$PASSWORD $MACHINE $DOMAIN $USERNAME $PASSWORD $NOTES`
 10. Click **Save**
 
-## Add assocaited secret 
+## Add associated secret 
 Once you have built the dependency, an assoacited secret with permission to log in as an administrator on the Veeam server will need to be added to the secret. 
