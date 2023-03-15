@@ -76,7 +76,7 @@ This solution will require an application account to be used by the script. The 
 - **Local Account**: Go to **Admin \| Users \| Create New**, then fill in **Names** for the account and click **Advanced**. Check the **Application Account** box and **Save**.
 - **Domain Account**: create AD based user and add to sync group to create user. Then open the user account and click **Advanced**. Check the **Application Account** box and **Save**.
 3. **Optional:** add [IP address restrictions](https://docs.delinea.com/secrets/current/users/user-restriction-settings/index.md) to the account
-4. Create a new Role for the API Folder Management User, this role should include the following role permissions: `Administer Folders` `View Folders`
+4. Create a new Role for the API Folder Management User, this role should include the following role permissions: `Administer Folders` `View Folders` 'View Groups''View Roles''View Secret Policy''View Secret Templates''View Users'
 5. Assign the Created Role to the API user
 
 ### Create Secret for Folder Creation API User
