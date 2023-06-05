@@ -18,7 +18,7 @@ This scanner can help perform an Scan for Windows Systems based off an IP addres
     - **Input Template**: Host Range
     - **Output Template**: Computer
     - **Script**: IP Address Machine Scanner
-    - **Arguments**: $Target $[1]$Domain
+    - **Arguments**: `$Target $[1]$Domain`
 
 1. Adding the Scanner
 
