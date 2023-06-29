@@ -57,7 +57,7 @@ You can create a new local group or use an existing local group that users are a
 > :warning: **The local Everyone group cannot be used** for this example as all users are members of the group and its membership cannot be modified. 
 
 
-> :warning: **Domain groups cannot be used** for with triggers based on membership changes. Secret Server does not get a notification about membership changes when performing a sync so the EP will not be triggered.
+> :warning: **Domain groups should be used with care** if using triggers based on membership changes. Secret Server does not get a notification about membership changes until it performs a sync of the domain so the EP will not be triggered immediatley leading to long waits.
 
 ### Create Top Level Folder and disable Personal Folders
 
