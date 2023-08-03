@@ -1,8 +1,10 @@
 # ⚠️ The content (scripts, documentation, examples) included in this repository are provided as-is and do not provide any warranty or support. ⚠️ 
---
+
 The entire risk arising out of the code and content's use or performance remains with you. In no event shall maintainers, authors, or anyone else involved in the creation, production, or delivery of the content be liable for any damages whatsoever (including, without limitation, damages for loss of business profits, business interruption, loss of business information, or other pecuniary loss) arising out of the use of or inability to use the code or content.
 
---
+
+
+### 🛑 This script relies on the Azure.AD Powershell modules which [Microsoft has announced will be deprecated March 30, 2024](https://techcommunity.microsoft.com/t5/microsoft-entra-azure-ad-blog/microsoft-entra-new-feature-and-change-announcements/ba-p/3796396) 🛑 ###
 
 # Azure Tenant Discovery
 
