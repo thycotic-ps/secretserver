@@ -9,8 +9,6 @@ $FolderOwnerUsers = @("Manager1","Manager2")
 $FolderOwnerGroups =  @("ManagementGroup")
 $AllowedTemplateIDs = @()
 
-#$logFile = "c:\temp\ss-EnhancedPersonalFolders.log"
-#(get-date).ToString() + ":`t" + $args[0,2,3] | Add-Content -path $logFile
 
 try {
     $Session = New-TssSession -SecretServer $SecretServerURL -Credential (New-Object System.Management.Automation.PSCredential ($APIUsername, $APIPassword))
