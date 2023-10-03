@@ -1,3 +1,4 @@
+#test
 if ($args.count -gt 4) {[string]$APIUsername = $args[4],$args[0] -join "\"}else{[string]$APIUsername = $args[0]}
 [securestring]$APIPassword =  ConvertTo-SecureString $args[1] -AsPlainText -Force
 $Username = $args[2]
