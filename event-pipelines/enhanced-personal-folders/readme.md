@@ -1,13 +1,8 @@
-1
-## Introduction
+# Introduction
 This solution will replicate the Personal Folders option in Secret Server with additional contols and manageability. 
 
 ---
 # Prerequisites 
-
-**The [Thycotic.SecretServer](https://github.com/thycotic-ps/thycotic.secretserver) PowerShell module**
-
-This will need to be loaded on all systems that can execute scripts from Event Pipelines. If you are leveraging Distributed Engines, then all Engine servers for the selected site will need the software, otherwise the scripts will be run on the web server nodes.
 
 **[SecretServer webservices](https://docs.thycotic.com/ss/11.1.0/webservices/enabling-webservices/index.md)**
 
@@ -29,12 +24,12 @@ This can be either a local account or a domain based account. This account will 
 1. On the PowerShell tab, click :heavy_plus_sign:**Create New**. The New PowerShell Script window appears:
 1. Fill in the **Name**, **Description** and **Category** fields.
     > **Note**: Select "Untyped" for Category
-1. Paste the script into the Script text box. [enhanced-personal-folders.ps1](enhanced-personal-folders.ps1)
-1. Set variables on lines 6-10
+1. Paste the script into the Script text box. [EnhancedFolders.ps1](EnhancedFolders.ps1)
+1. Set variables on lines 46, 52-55
 
     | Variable | Description | Example |
     | -------- | ----------- | ------- |
-    $SecretServerURL | Url of your SecretServer instance | https://pam.local/secretserver  https://privotter.secretservercloud.com/ |
+    $application | Url of your SecretServer instance | https://pam.local/secretserver  https://privotter.secretservercloud.com/ |
     $PFolderBaseID | folder ID of base folder for individual folders | integer
     $FolderOwnerUsers | comma separated list of userNames to include with folder owner permissions | @("Manager1","Manager2")
     $FolderOwnerGroups | comma separated list of GroupNames to include with folder owner permissions | @("Manager Group","PAM Administrators")
@@ -109,8 +104,8 @@ Event Pipelines are a named group of triggers, filters, and tasks to manage even
     | ------ | ------- |
     | Script | Select Script uploaded earlier |
     | Use Site Run As Secret | :heavy_check_mark: or leave :black_square_button: and use **Run Secret** to specify account opening the pssession
-    | Script Args | `$[add:1]$username $[add:1]$password "$targetuser.username" "$targetuser.displayname"`|
-    | | *(for AD based API account)*  `$[add:1]$username $[add:1]$password "$targetuser.username" "$targetuser.displayname" $[add:1]$domain ` |
+    | Script Args | `$[add:1]$username $[add:1]$password "$targetuserid" "$targetuser.displayname"`|
+    | | *(for AD based API account)*  `$[add:1]$username $[add:1]$password "$targetuserid" "$targetuser.displayname" $[add:1]$domain ` |
     |Run Site | Select desired Site
     |Additional Secret 1 | Select the secret containing the API user credentials| 
 
