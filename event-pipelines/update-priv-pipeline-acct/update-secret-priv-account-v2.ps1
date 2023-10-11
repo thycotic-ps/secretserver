@@ -78,7 +78,7 @@ try {
         Id = $secretId
         PrivilegedSecretId = $privSecret.SecretId
     }
-    Set-TssSecretRpcPrivileged @setPrivParmas -ErrorAction Stop
+    Set-TssSecretRpcPrivileged @setPrivParams -ErrorAction Stop
 } catch {
     Write-TssLog -LogFilePath $logFile -MessageType ERROR -Message "[Set-TssSecretRpcPrivileged] issue setting privileged secret to [$($privSecret.SecretName)] on secret [$secretId]"
     throw "[Set-TssSecretRpcPrivileged] issue setting privileged secret to [$($privSecret.SecretName)] on secret [$secretId]"
