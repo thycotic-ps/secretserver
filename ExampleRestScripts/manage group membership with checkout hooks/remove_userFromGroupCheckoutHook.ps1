@@ -55,5 +55,5 @@ else {
     Write-Verbose "User not found in target group ${$params[1]}"
 }
 
-$PSDefaultParameterValues.remove('*:credential')
-$PSDefaultParameterValues.remove('*:server')
+if ($PSDefaultParameterValues.Keys -contains "*:credential") { $PSDefaultParameterValues.remove('*:credential') }
+if ($PSDefaultParameterValues.Keys -contains "*:server") { $PSDefaultParameterValues.remove('*:server') }
