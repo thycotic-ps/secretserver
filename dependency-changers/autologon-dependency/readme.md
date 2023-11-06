@@ -29,7 +29,7 @@ This will push the password to an encrypted registry location for configuring Au
 
 The [autologon-dependency-validate.ps1](autologon-dependency-validate.ps1) has been required a few times now to be implemented as well as a secondary dependency. Windows has some requirement that after the autologon key is updated on the machine that it will fail to auto login. It requires the new password to be "provided" first before taking effect. The second dependency does just that. Research into further seeing why this is happening has not been available. At some point in the future the scripts could be combined to make deployment easier.
 
-You may want to implement the [windows-restart-computer](../windows-restart-computer) dependency after updating this credential.
+You may want to implement the [windows-restart-dependency](../windows-restart-dependency) dependency after updating this credential.
 
 ## Autologin Validate Configuration
 
