@@ -5,6 +5,9 @@ $privUserName = "$prefix\$privUserName"
 $privPassword = ConvertTo-SecureString -AsPlainText $args[2] -Force
 $creds = New-Object System.Management.Automation.PSCredential -ArgumentList $privUserName, $privPassword
 
+$RestartAfterUpdate = $true     #Should we restart the target computer after updating
+$RestartPreDelay = 3            #Durantion of pause before restarting target (In Seconds)
+
 Invoke-Command -ComputerName $args[3] -Credential $creds -ArgumentList $args[4] {
     param ($Password)
     $Password = ConvertTo-SecureString $Password -AsPlainText -Force
@@ -195,6 +198,16 @@ Invoke-Command -ComputerName $args[3] -Credential $creds -ArgumentList $args[4] 
         $lsaUtil.SetSecret($decryptedPass)
     } catch {
         throw 'Failed to set auto logon password. The error was: "{0}".' -f $_
+    }
+
+}
+
+if ($RestartAfterUpdate){
+    Start-Sleep -Seconds $RestartPreDelay
+    try {
+        Invoke-Command -ComputerName $args[3] -Credential $creds -ScriptBlock { Restart-Computer -Force }
+    } catch {
+        throw 'Failed to restart target maachine. The error was: "{0}".' -f $_
     }
 
 }

@@ -1,6 +1,6 @@
 # Introduction
 
-This will push the password to an encrypted registry location for configuring AutoLogon of a credential.
+This will push the password to an encrypted registry location for configuring AutoLogon of a credential. If an unencrypted credential is found it will be removed and repalced with the encrypted method. After updating the credential there is a configurable pause and the target comptuier will restart/
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@ This will push the password to an encrypted registry location for configuring Au
 
 1. Add [autologon-dependency.ps1](autologon-dependency.ps1) script to Secret Server:
    - **ADMIN** > **Scripts**
-
+     
 2. Configure Dependency Changer:
    - **ADMIN** > **Remote Password Changing** > **Configure Dependency Changers** >
    - Click on Create New Dependency Changer
@@ -27,9 +27,7 @@ This will push the password to an encrypted registry location for configuring Au
 
 ## Notes
 
-The [autologon-dependency-validate.ps1](autologon-dependency-validate.ps1) has been required a few times now to be implemented as well as a secondary dependency. Windows has some requirement that after the autologon key is updated on the machine that it will fail to auto login. It requires the new password to be "provided" first before taking effect. The second dependency does just that. Research into further seeing why this is happening has not been available. At some point in the future the scripts could be combined to make deployment easier.
-
-You may want to implement the [windows-restart-dependency](../windows-restart-dependency) dependency after updating this credential.
+The [autologon-dependency-validate.ps1](autologon-dependency-validate.ps1) has been required a few times now to be implemented as well as a secondary dependency. Windows has some requirement that after the autologon key is updated on the machine that it will fail to auto login. It requires the new password to be "provided" first before taking effect. The second dependency does just that. Research into further seeing why this is happening has not been available. you will also need to disable the automatic restart option in the primary dependency and also add the [windows-restart-dependency](../windows-restart-dependency) dependency after updating and validating this credential.
 
 ## Autologin Validate Configuration
 
