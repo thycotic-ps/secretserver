@@ -1,4 +1,3 @@
-$args = @("https://gpepperlab.secretservercloud.com","localuser",".Dogpile09@@@",".Lycos09@@@@@")
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 $authServerURL = $args[0] + '/oauth2/token'
