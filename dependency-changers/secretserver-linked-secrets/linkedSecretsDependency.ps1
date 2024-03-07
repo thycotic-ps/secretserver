@@ -3,7 +3,8 @@
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-$ServerURL = "https://SecretServerBasePath/"
+#Enabling this field will Update the Password Field and NOT trigger a Password change.  Only works with Templates where the secret field is a slug call "password"
+$disableRCP = $true
 
 $APIUser = $args[0]
 $APIUserPassword = $args[1]
@@ -12,8 +13,8 @@ $SecretList = $Args[3].split(",")
 $APIUserDomain = $args[4]
 
 #if you need more verbose errors change this to $true and make sure the file path exists
-$debug = $false
-$errorfile = "c:\temp\secretDependencyUpdateFailures.csv"
+$debug = $true
+$errorfile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\LinkedSecretsDependencyChanger.log"
 
 if ($debug) {(get-date).ToString(), "`nPassword Masking Key A = A-Z UPPERCASE / z = a-z lowercase / N = Any digit / ? = Anything else`n", ("Arguments: " + $args.count),(@{
     "APIUser" = $args[0]
@@ -41,24 +42,31 @@ if ($null -eq $APIUserDomain -or $APIUserDomain -eq "local")
 $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("Content-Type", "application/json")
 
+$creds | ConvertTo-Json
+
 try 
 {
     $APIToken = Invoke-RestMethod ($serverurl + 'oauth2/token') -Method 'POST' -Headers $headers -Body $creds | Select-Object -ExpandProperty access_token
     if ($debug) {(get-date).ToString(), "Connected to API: ", ($serverurl + 'oauth2/token') -join "`t" | Out-File -FilePath $errorfile -Append}
 }catch 
 {
-    write-error "Error logging into server $serverurl : $_" 
+    write-error "Error logging into server $serverurl with account $APIUser : $_" 
     if ($debug) {(get-date).ToString(), "Bad login attempt: ",($serverurl + 'oauth2/token'),  $body, $_ -join "`t" | Out-File -FilePath $errorfile -Append}
     return
 }
-
 $headers.Add("Authorization", "Bearer " + $APIToken)
 $body = @{ "newPassword" = $SecretPassword}
 [array]$errorlist = @()
 foreach ($SecretID in $SecretList){
-    try 
-    {
-        Invoke-RestMethod ( $ServerURL + 'api/v1/secrets/' + $SecretID + '/change-password') -Method 'POST' -Headers $headers -Body ($body|convertto-json) | Out-Null
+    try {
+        if ($disableRCP) {
+            #Updating Password Field without triggering RPC
+            $body = @{ "value" = $SecretPassword}
+            Invoke-RestMethod ( $ServerURL + 'api/v1/secrets/' + $secretid + '/fields/password') -Method 'PUT' -Headers $headers -Body ($body|convertto-json) | Out-Null
+        } else {
+            Invoke-RestMethod ( $ServerURL + 'api/v1/secrets/' + $SecretID + '/change-password') -Method 'POST' -Headers $headers -Body ($body|convertto-json) | Out-Null
+        }
+        
         if ($debug) {(get-date).ToString(), "SecretID: $secretid", "Updated Without Error" -join "`t" | Out-File -FilePath $errorfile -Append}
     }catch{
         $errorlist += $secretid
