@@ -2,7 +2,9 @@ $hostaddress = $args[0]
 $username = $args[1]
 $password = $args[2]
 $enable = $args[3]
-$commands = $args[4]
+
+#Command used to obatin User List. 
+$commands = "show running-config | i user"
 
 # Open SSH stream session, passes IOS commands, reads stream and parses account info
 # This script leverages WMF 5.0 and checks if it is installed
