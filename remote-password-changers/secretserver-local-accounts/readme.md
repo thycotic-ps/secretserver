@@ -74,4 +74,11 @@ Navigate to **Admin | Scripts** and create a script for the HB and RPC using the
 1. Select **URL**
 1. Confirm selections for **Password** and **User Name** are set correctly
 
+## Configure Site
+1. Navigate to **Admin > Distributed Engine**
+1. Click name of Site (ex. Default)
+1. Under Advanced Site Configuration, click Edit 
+1. Update **Default PowerShell RunAs Secret**
+    1. Select secret that has permission to execute PowerShell scripts on the Distributed Engine.
+
 Proceed to create a new secret and test/verify the HB and RPC function correctly.
