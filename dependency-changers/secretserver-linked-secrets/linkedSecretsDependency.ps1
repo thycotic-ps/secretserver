@@ -3,14 +3,17 @@
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-#Enabling this field will Update the Password Field and NOT trigger a Password change.  Only works with Templates where the secret field is a slug call "password"
-$disableRCP = $true
-
 $APIUser = $args[0]
 $APIUserPassword = $args[1]
 $SecretPassword = $args[2]
 $SecretList = $Args[3].split(",")
 $APIUserDomain = $args[4]
+
+#Enabling this field will Update the Password Field and NOT trigger a Password change.  Only works with Templates where the secret field is a slug call "password"
+$disableRCP = $false
+
+#Set ServerURL for your enviroment
+$ServerURL = "https://SecretServerBasePath/"
 
 #if you need more verbose errors change this to $true and make sure the file path exists
 $debug = $true
@@ -41,8 +44,6 @@ if ($null -eq $APIUserDomain -or $APIUserDomain -eq "local")
 
 $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $headers.Add("Content-Type", "application/json")
-
-$creds | ConvertTo-Json
 
 try 
 {
