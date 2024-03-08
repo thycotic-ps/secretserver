@@ -1,9 +1,7 @@
 #Global Variables used for debugging issues
-$debug = $true
+$debug = $false
 $errorfile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\Local Service Account Dependencies.log"
 
-
-#Pull the accounts  that are running services on the machine.
 $machine = $args[0]
 $username = $args[1]
 $password = $args[2]

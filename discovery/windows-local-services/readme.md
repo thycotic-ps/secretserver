@@ -29,8 +29,7 @@ The purpose of this solution is help discover services running as local server a
 
 Navigate to **Admin | Scripts** and create a script for the workgroup IP scanner using the details below.
 
-| ------------| --------------------------------------------------------------------------------------------|
-| Field       | Value                                                                                       |
+  Field       | Value                                                                                       
 | ----------- | --------------------------------------------------------------------------------------------|
 | Name        | Windows Workgroup IP Scanner                                                                |
 | Description | Script for scanning Windows machine via IP range                                            |
@@ -38,20 +37,20 @@ Navigate to **Admin | Scripts** and create a script for the workgroup IP scanner
 | Script Type | PowerShell                                                                                  |
 | Category    | Discovery Scanner                                                                           |
 | Script      | Paste contents of the [windows-workgroup-ip-scanner.ps1](windows-workgroup-ip-scanner.ps1)  |
-| ----------- | --------------------------------------------------------------------------------------------|
+  ----------- | --------------------------------------------------------------------------------------------
 
 Navigate to **Admin | Scripts** and create a script for the local account service discovery using the details below.
 
-| ------------| --------------------------------------------------------------------------------------------|
-| Field       | Value                                                                                       |
+
+  Field       | Value                                                                                       
 | ----------- | --------------------------------------------------------------------------------------------|
-| Name        | Windows Service Local Account                                                            |
+| Name        | Windows Service Local Account                                                               |
 | Description | Script finding Windows Service running as non-domain accounts                               |
 | Active      | Check the box                                                                               |
 | Script Type | PowerShell                                                                                  |
 | Category    | Dependency                                                                                  |
 | Script      | Paste contents of the [windows-workgroup-ip-scanner.ps1](windows-workgroup-ip-scanner.ps1)  |
-| ----------- | --------------------------------------------------------------------------------------------|
+ -------------  --------------------------------------------------------------------------------------------
 
 
 
@@ -70,7 +69,8 @@ Navigate to **Admin | Scripts** and create a script for the local account servic
 | Parent Scan Template  | Computer                                                                        |
 | Fields                | Add DNSHostName  (Leave Parent Unselected & INCLUDE IN MATCH unchecked)         |
 |                       | Add ADGUID                                                                      |
-|                       | Add DistinguishedName                                                           |
+|                       | Add DistinguishedName   
+                          Add IP                                                    |
 | ------------------| ----------------------------------------------------------------------------------- |
 
 
