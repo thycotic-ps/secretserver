@@ -12,7 +12,7 @@ if ($false -eq $workGroupOnly) {
 
 
 if ($debug) {
-        (get-date).ToString() + "   Arguments: $container, $Username  $password `t" | Out-File -FilePath $errorfile -Append
+        (get-date).ToString() + "   Arguments: $container, $Username  `t" | Out-File -FilePath $errorfile -Append
         write-debug "Arguments: $container, $Username"
 }
 

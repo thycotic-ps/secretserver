@@ -10,7 +10,7 @@ $password = $args[2]
 $Spassword = ConvertTo-SecureString $password -AsPlainText -Force
 
 if ($debug) {
-    (get-date).ToString() + "   Arguments: $machine, $Username  $password `t" | Out-File -FilePath $errorfile -Append
+    (get-date).ToString() + "   Arguments: $machine, $Username  `t" | Out-File -FilePath $errorfile -Append
     write-debug "Arguments: $machine, $Username"
 }
 
