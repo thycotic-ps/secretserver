@@ -1,7 +1,8 @@
-#Username and Password in Arg's are used to log into the local server.
-$debug = $true
+#Global Variables for Logging
+$debug = $false
 $errorfile = "$env:ProgramFiles\Thycotic Software Ltd\Distributed Engine\log\Windows Workgroup IP Scanner.log"
-$workGroupOnly = $false
+#Setting this variable to $true ignores all Active Directory Domain Memebers
+$workGroupOnly = $true
 
 $container = $args[0]
 $username = $args[1]
@@ -21,7 +22,6 @@ if ($debug) {
 # parse out the range from the container args
 $ranges = $container.Substring($container.IndexOf('=') + 1,($container.Length - $container.IndexOf('='))-1)
 
-# cidr format, specificOU, 
 
 $targetMachines = $null
 
@@ -202,8 +202,8 @@ foreach ($target in $targetMachines)
 
             
                     #Query Non-DE for Information
+                    $comp = Get-WmiObject Win32_ComputerSystem -ComputerName $target -Credential $cred
                     $osInfo = Get-WmiObject Win32_OperatingSystem -ComputerName $target -Credential $cred -ErrorAction SilentlyContinue
-                    $comp = Get-WmiObject Win32_ComputerSystem -ComputerName $target -Credential $cred -ErrorAction SilentlyContinue
                     $GUID = Get-WmiObject Win32_ComputerSystemProduct -ComputerName $target -Credential $cred -ErrorAction SilentlyContinue
                     if ($debug) {
                         (get-date).ToString() + "  Found - " + ($comp).Name + "`t" | Out-File -FilePath $errorfile -Append
@@ -228,7 +228,10 @@ foreach ($target in $targetMachines)
                 {
                     $ErrorMessage = $_.Exception.Message
                     $FailedItem = $_.Exception.ItemName 
-                    write-debug "$target  $FailedItem $ErrorMessage"
+                    if ($debug) {
+                        (get-date).ToString() + "Failed to Query $target - $ErrorMessage `t" | Out-File -FilePath $errorfile -Append
+                        write-debug "Failed to Query $target - $ErrorMessage"
+                    }
                 }
         }
         else {
@@ -247,6 +250,7 @@ foreach ($target in $targetMachines)
         $object | Add-Member -MemberType NoteProperty -Name DNSHostName -Value $comp.DNSHostName;
         $object | Add-Member -MemberType NoteProperty -Name ADGUID -Value $GUID.UUID;
         $object | Add-Member -MemberType NoteProperty -Name DistinguishedName -Value "CN=$($comp.Name),$container"
+        $object | Add-Member -MemberType NoteProperty -Name IP -Value $target
         $FoundComputers += $object
         if ($debug) {
             ("Machine : " + $object.Machine) | Out-File -FilePath $errorfile -Append
@@ -254,6 +258,7 @@ foreach ($target in $targetMachines)
             ("DNSHostName - " + $object.DNSHostName) | Out-File -FilePath $errorfile -Append
             ("ADGUID - " + $object.ADGUID) | Out-File -FilePath $errorfile -Append
             ("DistinguishedName - " + $object.DistinguishedName) | Out-File -FilePath $errorfile -Append
+            ("IPAdress - " + $object.IP) | Out-File -FilePath $errorfile -Append
             write-debug ("Found Machine - {0}" -f $object.ComputerName)
         }
 
