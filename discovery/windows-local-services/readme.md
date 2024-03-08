@@ -181,12 +181,18 @@ Navigate to **Admin | Scripts** and create a script for the local account servic
 
 1. Click **Save** button
 1. Click **Cancel** button on **Add Flow** dialog box
+
+#### Manual Host Range
+
 1. Click **Add Scanner** button
 1. Find **Manual Host Range** scanner and Click **Add Scanner** button
 1. Click on **Manual Host Range** step
 1. Click **Edit Scanner**
 1. Add IPs addresses or IP Range to **Lines** field
 1. Click **Save** button
+
+#### Add Windows IP Scanner
+
 1. Click **Add Scanner** button
 1. Find **Windows IP Scanner** scanner and Click **Add Scanner** button
 1. Click on **Windows IP Scanner** step
@@ -196,6 +202,9 @@ Navigate to **Admin | Scripts** and create a script for the local account servic
 1. Click **Add Secret**
 1. Select secret with administrator permissions on workgroup machines
 1. Click **Save** button
+
+#### Add Windows Local Accounts Scanner
+
 1. Click **Add Scanner** button
 1. Find **Windows Local Accounts** scanner and Click **Add Scanner** button
 1. Click on **Windows Local Accounts** step
@@ -203,6 +212,9 @@ Navigate to **Admin | Scripts** and create a script for the local account servic
 1. Click **Add Secret**
 1. Select secret with administrator permissions on workgroup 
 1. Click **Save** button
+
+#### Add Windows Service w/ Local Accounts Scanner
+
 1. Click **Add Scanner** button
 1. Find **Windows Service w/ Local Accounts** scanner and Click **Add Scanner** button
 1. Click on **Windows Service w/ Local Accounts  ** step
