@@ -5,7 +5,7 @@ The purpose of this solution is help discover services running as local server a
 
 ## Prerequisites
 
-- A Secret Server instance version 10.1.0 or newer with a premium add-on or Enterprise Plus
+- A Secret Server instance version 10.1.0 or newer with a Professional add-on or Platinum License
 - A PowerShell implementation enabled and working properly on the Distributed Engines. 
     - See Configuring WinRM for PowerShell - https://docs.delinea.com/online-help/secret-server/api-scripting/configuring-winrm-powershell/index.htm
 - Download and run WellnessChecker tool on the Distributed Engines
@@ -29,7 +29,7 @@ The purpose of this solution is help discover services running as local server a
 
 Navigate to **Admin | Scripts** and create a script for the workgroup IP scanner using the details below.
 
-  Field       | Value                                                                                       
+| Field       | Value                                                                                       |
 | ----------- | --------------------------------------------------------------------------------------------|
 | Name        | Windows Workgroup IP Scanner                                                                |
 | Description | Script for scanning Windows machine via IP range                                            |
@@ -37,12 +37,11 @@ Navigate to **Admin | Scripts** and create a script for the workgroup IP scanner
 | Script Type | PowerShell                                                                                  |
 | Category    | Discovery Scanner                                                                           |
 | Script      | Paste contents of the [windows-workgroup-ip-scanner.ps1](windows-workgroup-ip-scanner.ps1)  |
-  ----------- | --------------------------------------------------------------------------------------------
 
 Navigate to **Admin | Scripts** and create a script for the local account service discovery using the details below.
 
 
-  Field       | Value                                                                                       
+| Field       | Value                                                                                       |
 | ----------- | --------------------------------------------------------------------------------------------|
 | Name        | Windows Service Local Account                                                               |
 | Description | Script finding Windows Service running as non-domain accounts                               |
@@ -50,8 +49,6 @@ Navigate to **Admin | Scripts** and create a script for the local account servic
 | Script Type | PowerShell                                                                                  |
 | Category    | Dependency                                                                                  |
 | Script      | Paste contents of the [windows-workgroup-ip-scanner.ps1](windows-workgroup-ip-scanner.ps1)  |
- -------------  --------------------------------------------------------------------------------------------
-
 
 
 ### Scanner Templates
@@ -60,7 +57,7 @@ Navigate to **Admin | Scripts** and create a script for the local account servic
 1. Click **Discovery Configuration Options** and select **Scanner Definition** from the drop-down list.
 1. Click **Create Scan Template** button
 
-| ----------------------| ------------------------------------------------------------------------------- |
+
 | Field                 | Value                                                                           |
 | ----------------------| --------------------------------------------------------------------------------|
 | Name                  | Windows Workgroup Computer                                                      |
@@ -69,16 +66,16 @@ Navigate to **Admin | Scripts** and create a script for the local account servic
 | Parent Scan Template  | Computer                                                                        |
 | Fields                | Add DNSHostName  (Leave Parent Unselected & INCLUDE IN MATCH unchecked)         |
 |                       | Add ADGUID                                                                      |
-|                       | Add DistinguishedName   
-                          Add IP                                                    |
-| ------------------| ----------------------------------------------------------------------------------- |
+|                       | Add DistinguishedName                                                           |
+|                       | Add IP                                                                          |
+
 
 
 1. Browse to **Admin > Discovery** and click the **Configuration** tab.
 1. Click **Discovery Configuration Options** and select **Scanner Definition** from the drop-down list.
 1. Click **Create Scan Template** button
 
-| ----------------------| --------------------------------------------------------------------------------|
+
 | Field                 | Value                                                                           |
 | ----------------------| --------------------------------------------------------------------------------|
 | Name                  | Windows Local Account Service                                                   |
@@ -87,7 +84,7 @@ Navigate to **Admin | Scripts** and create a script for the local account servic
 | Parent Scan Template  | Computer Dependency (Basic)                                                     |
 | Account Scan Template | Windows Local Account                                                           |
 | Fields                | Remove Domain                                                                   |
-| ----------------------| --------------------------------------------------------------------------------|
+
 
 ### Dependency Templates
 
@@ -96,7 +93,7 @@ Navigate to **Admin | Scripts** and create a script for the local account servic
 1. Click **Dependency Templates** tab
 1. Click **Create Dependency Template** button
 
-| ----------------------| --------------------------------------------------------------------------------|
+
 | Field                 | Value                                                                           |
 | ----------------------| --------------------------------------------------------------------------------|
 | Name                  | Windows Local Account Dependency                                                |
@@ -105,7 +102,7 @@ Navigate to **Admin | Scripts** and create a script for the local account servic
 | Dependency Type       | Windows Service                                                                 |
 | Scan Template         | Windows Service Local Account                                                   |
 | Dependency Changer    | Windows Service Dependency Changer                                              |
-| ----------------------| --------------------------------------------------------------------------------|
+
 
 
 ### Scanners
@@ -115,7 +112,7 @@ Navigate to **Admin | Scripts** and create a script for the local account servic
 1. Click **Scanners** tab
 1. Click **Create Scanner** button
 
-| ----------------------| --------------------------------------------------------------------------------|
+
 | Field                 | Value                                                                           |
 | ----------------------| --------------------------------------------------------------------------------|
 | Name                  | Widows IP Scanner                                                               |
@@ -127,14 +124,14 @@ Navigate to **Admin | Scripts** and create a script for the local account servic
 | Output Template       | Windows Workgroup Computer                                                      |
 | Script                | Windows Workgroup IP Scanner                                                    |
 | Script Arguments      | $target $[2]$username $[2]$password                                             |
-| ----------------------| --------------------------------------------------------------------------------|
+
 
 1. Browse to **Admin > Discovery** and click the **Configuration** tab.
 1. Click **Discovery Configuration Options** and select **Scanner Definition** from the drop-down list.
 1. Click **Scanners** tab
 1. Click **Create Scanner** button
 
-| ----------------------| --------------------------------------------------------------------------------|
+
 | Field                 | Value                                                                           |
 | ----------------------| --------------------------------------------------------------------------------|
 | Name                  | Windows Service w/ Local Accounts                                               |
@@ -146,14 +143,14 @@ Navigate to **Admin | Scripts** and create a script for the local account servic
 | Output Template       | Windows Local Account Service                                                   |
 | Script                | Windows Service Local Account                                                   |
 | Script Arguments      | $target $[2]$username $[2]$password                                             |
-| ----------------------| --------------------------------------------------------------------------------|
+
 
 1. Browse to **Admin > Discovery** and click the **Configuration** tab.
 1. Click **Discovery Configuration Options** and select **Scanner Definition** from the drop-down list.
 1. Click **Scanners** tab
 1. Click **Create Scanner** button
 
-| ----------------------| --------------------------------------------------------------------------------|
+
 | Field                 | Value                                                                           |
 | ----------------------| --------------------------------------------------------------------------------|
 | Name                  | Windows Local Accounts                                               |
@@ -164,20 +161,20 @@ Navigate to **Admin | Scripts** and create a script for the local account servic
 | Allow OU Input        | Checked                                                                         |
 | Input Template        | Windows Workgroup Computer                                                      |
 | Output Template       | Windows Local Account                                                           |
-| ----------------------| --------------------------------------------------------------------------------|
+
 
 ### Create Discovery Source
 
 1. Browse to **Admin > Discovery**
 1. Click **Create** button and select **Empty Discovery Source**
 
-| ----------------------| --------------------------------------------------------------------------------|
+
 | Field                 | Value                                                                           |
 | ----------------------| --------------------------------------------------------------------------------|
 | Name                  | Workgroup Discovery                                                             |
-| Site                  | select Secret Server Site                                                       |
+| Site                  | Select Secret Server Site                                                       |
 | Source Type           | Empty                                                                           |
-| ----------------------| --------------------------------------------------------------------------------|
+
 
 1. Click **Save** button
 1. Click **Cancel** button on **Add Flow** dialog box
@@ -188,7 +185,7 @@ Navigate to **Admin | Scripts** and create a script for the local account servic
 1. Find **Manual Host Range** scanner and Click **Add Scanner** button
 1. Click on **Manual Host Range** step
 1. Click **Edit Scanner**
-1. Add IPs addresses or IP Range to **Lines** field
+1. Add IP addresses or IP Range to **Lines** field
 1. Click **Save** button
 
 #### Add Windows IP Scanner
@@ -198,7 +195,7 @@ Navigate to **Admin | Scripts** and create a script for the local account servic
 1. Click on **Windows IP Scanner** step
 1. Click **Edit Scanner**
 1. Click **Add Secret**
-1. Select secret with permissions run PowerShell on Distributed Engines
+1. Select a secret with permissions to run PowerShell on Distributed Engines
 1. Click **Add Secret**
 1. Select secret with administrator permissions on workgroup machines
 1. Click **Save** button
@@ -220,7 +217,7 @@ Navigate to **Admin | Scripts** and create a script for the local account servic
 1. Click on **Windows Service w/ Local Accounts  ** step
 1. Click **Edit Scanner**
 1. Click **Add Secret**
-1. Select secret with permissions run PowerShell on Distributed Engines
+1. Select a secret with permissions to run PowerShell on Distributed Engines
 1. Click **Add Secret**
 1. Select secret with administrator permissions on workgroup machines
 1. Click **Save** button
@@ -248,10 +245,10 @@ Navigate to **Admin | Scripts** and create a script for the local account servic
 1. Click **Service Accounts** tab
 1. Select the service accounts to import
 1. Click **Import** button
-1. Fill out details of secret
+1. Fill out the details of the secret
 1. Click **Ok** button
 
-** Note: Service Accounts will only show up in the Legacy Network View Page.  Due to an unknown bug you will not see these show up in the new UI **
+** Note: Service Accounts may only show up on the Legacy Network View Page. **
 
 
 
