@@ -1,6 +1,8 @@
 # Group modification via checkout hook
 These scripts can be used in checkout hooks or event pipeline to modify user group memberships
 
+NOTE: The associated secret must be used with this process. 
+
 ## Usage
 Add these scritps to the check-in check-out processes. 
 
