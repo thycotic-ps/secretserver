@@ -1,7 +1,3 @@
-/*
-.PURPOSE
-Account scan results with Scan Template, for managed and unmanaged
-*/
 SELECT
     ds.[Name] AS 'Discovery Source'
     ,ca.[AccountName] AS 'Account Name'
