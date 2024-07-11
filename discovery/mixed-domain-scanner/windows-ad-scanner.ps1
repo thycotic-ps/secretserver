@@ -28,7 +28,7 @@ foreach ($comp in $ComputersinOU) {
         $object = [pscustomobject]@{
             ComputerName = $comp.Name
             DNSHostName = $comp.DNSHostName
-            ADGUID = $com.ObjectGuid
+            ADGUID = $comp.ObjectGuid
             OperatingSystem = $Os
             DistinguishedName = $comp.DistinguishedName.Replace(",$distinguisheddomain",'')
         }
