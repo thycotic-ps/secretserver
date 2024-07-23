@@ -2,6 +2,9 @@
 
 This document provides the details for creating a custom Launcher for MobaXterm. The first launcher is intended to work for SSH username/password accounts, whereas the second is for SSH keys. The second launcher is designed to work with SSH keys without a passphrase. If the keys do have a passphrase, it will need to be manually entered at this time.
 
+## Requirements
+This launcher requires a connection back to the Secret Server API via [Integrated Windows Authentiation ](https://docs.delinea.com/online-help/secret-server/authentication/iwa-webservices/configuring-iwa/index.htm) to retrieve the SSH Key. 
+
 ## Template
 
 Please note that with this launcher we simply leverage default templates. For the first launcher, we use the default "Unix Account (SSH)" template. For the second launcher, we use the "Unix Account (SSH Key Rotation) template. Consider duplicating these templates and naming them appropriately for use with MobaXTerm. For the second launcher, ensure that an additional field called "SecretID" is added to the template.
