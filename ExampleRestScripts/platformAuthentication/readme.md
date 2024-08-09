@@ -9,10 +9,14 @@ New-DelineaPlatformSession
   [-unsafe]
   [<CommonParameters>]
 ```
-## 
-### PlatfrormURL: This is the base URL for your platform instance
-### Credentials: Credential object containing your service users authentication
-### unsafe: allows for non https urls if ever needed
+## Usage
+**PlatfrormURL:** This is the base URL for your platform instance
+
+**Credentials:** Credential object containing your service users authentication
+
+**Unsafe:** allows for non https urls if ever needed
+
+**verbose** Outputs logging information
 
 ## Notes
 * detects underlying secret server url from first assocaited vault
