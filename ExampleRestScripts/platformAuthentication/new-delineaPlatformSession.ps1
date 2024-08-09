@@ -1,4 +1,4 @@
-function new-DelinePlatformSession {
+function new-DelineaPlatformSession {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)]
