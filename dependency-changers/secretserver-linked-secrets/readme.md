@@ -7,7 +7,7 @@ This solution is used to change multiple secrets to the same password as a Prima
 
 - A Secret Server instance version 10.1.0 or newer with a premium add-on or Enterprise Plus
 - A PowerShell implementation enabled and working properly on the Distributed Engines. 
-    - See Configuring WinRM for PowerShell - https://docs.delinea.com/online-help/secret-server/api-scripting/configuring-winrm-powershell/index.htm
+    - See Configuring WinRM for PowerShell - [https://docs.delinea.com/online-help/secret-server/api-scripting/configuring-winrm-powershell/index.htm](https://docs.delinea.com/online-help/secret-server/api-scripting/scripting/powershell-scripts/powershell-winrm/configuring-winrm-powershell/index.htm)
 - Download and run WellnessChecker tool on the Distributed Engines
     - http://updates.thycotic.net/tools/powershell.wellnesschecker.zip
 - Create the user accounts and secrets described below.
