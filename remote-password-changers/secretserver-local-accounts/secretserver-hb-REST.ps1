@@ -20,10 +20,10 @@ $headers.Add("Content-Type", "application/json")
 try 
 {
     Invoke-RestMethod $ServerURL -Method 'POST' -Headers $headers -Body $body | Select-Object -ExpandProperty access_token
-    if ($debug) {(get-date).ToString(), "Connected to API with Account $Username : ", ($serverurl + '/oauth2/token') -join "`t" | Out-File -FilePath $errorfile -Append}
+    if ($debug) {(get-date).ToString(), "Connected to API with Account $Username : ", $serverurl -join "`t" | Out-File -FilePath $errorfile -Append}
 }catch 
 {
     write-error "Error logging into server $serverurl with account $APIUser : $_" 
-    if ($debug) {(get-date).ToString(), "Bad login attempt: ",($serverurl + '/oauth2/token'),  $body, $_ -join "`t" | Out-File -FilePath $errorfile -Append}
+    if ($debug) {(get-date).ToString(), "Bad login attempt: ", $serverurl,  $body, $_ -join "`t" | Out-File -FilePath $errorfile -Append}
     return
 }
