@@ -23,10 +23,11 @@ try
 {
     $token = Invoke-RestMethod $authServerURL -Method 'POST' -Headers $headers -Body $body | Select-Object -ExpandProperty access_token
     if ($debug) {(get-date).ToString(), "Connected to API: ", $authServerUrl -join "`t" | Out-File -FilePath $errorfile -Append}
-}catch 
+}
+catch 
 {
     write-error "Error logging into server $serverurl with account $APIUser : $_" 
-    if ($debug) {(get-date).ToString(), "Bad login attempt: ",($authServerUrl + '/oauth2/token'),  $body, $_ -join "`t" | Out-File -FilePath $errorfile -Append}
+    if ($debug) {(get-date).ToString(), "Bad login attempt: ", $authServerUrl,  $body, $_ -join "`t" | Out-File -FilePath $errorfile -Append}
     return
 }
 
@@ -37,9 +38,11 @@ $body = @{
 }
 
 try 
-    {
-        Invoke-RestMethod ( $apiServerURL + '/users/change-password') -Method 'POST' -Headers $headers -Body ($body|convertto-json) | Out-Null
-        if ($debug) {(get-date).ToString(), "Updating User Password: $Username", "Updated Without Error" -join "`t" | Out-File -FilePath $errorfile -Append}
-    }catch{
-        if ($debug) {(get-date).ToString(), "SecretID: $secretid", ($_.ErrorDetails) -join "`t" | Out-File -FilePath $errorfile -Append}
-    }
+{
+     Invoke-RestMethod ( $apiServerURL + '/users/change-password') -Method 'POST' -Headers $headers -Body ($body|convertto-json) | Out-Null
+     if ($debug) {(get-date).ToString(), "Updating User Password: $Username", "Updated Without Error" -join "`t" | Out-File -FilePath $errorfile -Append}
+}
+catch
+{
+     if ($debug) {(get-date).ToString(), "SecretID: $secretid", ($_.ErrorDetails) -join "`t" | Out-File -FilePath $errorfile -Append}
+}
