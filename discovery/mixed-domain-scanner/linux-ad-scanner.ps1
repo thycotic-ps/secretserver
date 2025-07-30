@@ -24,8 +24,8 @@ foreach ($comp in $ComputersinOU) {
     } else {
         $Os = $comp.OperatingSystem
     }
-    $Os = $Os.ToLower()
-    if ($Os.IndexOf("windows") -lt -0) {
+    
+    if ($Os.tolower().IndexOf("windows") -lt -0) {
         $object = [pscustomobject]@{
             ComputerName = $comp.Name
             DNSHostName = $comp.DNSHostName
