@@ -9,13 +9,10 @@ $HardcodeDomainController = $null
 
 #end user config
 
-#transition arguments to temporary variable to avoid scoping issues later
-$params = $args
-
-if ($params.count -gt 2) {
+if ($args.count -gt 2) {
     write-verbose "credentials sent, setting up parameters"
-    $password = ConvertTo-SecureString $params[4] -AsPlainText -Force
-    $PSDefaultParameterValues.Add('*:credential', (New-Object System.Management.Automation.PSCredential (($params[2], $params[3] -join '\'), $password)))
+    $password = ConvertTo-SecureString $args[4] -AsPlainText -Force
+    $PSDefaultParameterValues.Add('*:credential', (New-Object System.Management.Automation.PSCredential (($args[2], $args[3] -join '\'), $password)))
 }
 
 if ($null -ne $HardcodeDomainController) {
@@ -23,8 +20,8 @@ if ($null -ne $HardcodeDomainController) {
     $PSDefaultParameterValues.Add('*:server', $HardcodeDomainController)
 }
 
-#Get the AD user as an input from Secret Server $params[0]
-$ADUser = Get-ADUser -Identity $params[0]
+#Get the AD user as an input from Secret Server $args[0]
+$ADUser = Get-ADUser -Identity $args[0]
 if ($null -eq $aduser) { 
     throw "error finding user $aduser"
 }
@@ -35,8 +32,8 @@ else {
 $CurrentGroups = Get-ADPrincipalGroupMembership $ADUser | Select-Object Name
 Write-Verbose "$aduser Groups found ${$currentgroups.name}"
 
-#Return the Group Object from AD as an input from Secret Server $params[1]
-$GroupToRemove = Get-ADGroup -Identity $params[1]
+#Return the Group Object from AD as an input from Secret Server $args[1]
+$GroupToRemove = Get-ADGroup -Identity $args[1]
 if ($null -eq $GroupToRemove) { 
     throw "error finding target group $GroupToRemove"
 }
@@ -52,7 +49,7 @@ if ($CurrentGroups.Name.Contains($GroupToRemove.Name)) {
     Write-Verbose $result
 }
 else {
-    Write-Verbose "User not found in target group ${$params[1]}"
+    Write-Verbose "User not found in target group ${$args[1]}"
 }
 
 if ($PSDefaultParameterValues.Keys -contains "*:credential") { $PSDefaultParameterValues.remove('*:credential') }
