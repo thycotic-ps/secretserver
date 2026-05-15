@@ -1,9 +1,17 @@
-# Introduction
+# Moved to DelineaXPM Organzation with updated features
+> [!tip]
+> https://github.com/DelineaXPM/delinea-platform/tree/main/Scripts/SecretServer/Delinea/Secret%20Server/Linked%20Secrets/Secret%20Dependency
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+# Information below for reference only
+
+## Introduction
 
 This solution is used to change multiple secrets to the same password as a Primary account.   If you have a set of accounts that need to share the same password this solution will help accomplish that.
 
 
-## Prerequisites
+### Prerequisites
 
 - A Secret Server instance version 10.1.0 or newer with a premium add-on or Enterprise Plus
 - A PowerShell implementation enabled and working properly on the Distributed Engines. 
@@ -20,21 +28,21 @@ This solution is used to change multiple secrets to the same password as a Prima
 - Update linkedDependency.ps1 script
     - Update line 6 to reflect the URL of your Secret Server Instance
 
-## Setup
+### Setup
 
-## WellnessChecker
+### WellnessChecker
 1. Download exe to Distributed Engines
 1.  Extract the ZIP file and run this command
     `` PowerShell.WellnessChecker.exe -fixerrors ``
 
-## Configure Site
+### Configure Site
 1. Navigate to **Admin > Distributed Engine**
 1. Click name of Site (ex. Default)
 1. Under Advanced Site Configuration, click Edit 
 1. Update **Default PowerShell RunAs Secret**
     1. Select secret that has permission to execute PowerShell scripts on the Distributed Engine.
 
-### Create Script
+#### Create Script
 
 Navigate to **Admin | Scripts** and create a script for the Dependency Changer using the details below.
 
@@ -50,12 +58,12 @@ Navigate to **Admin | Scripts** and create a script for the Dependency Changer u
 | Script      | Paste contents of the [linkedSecretDependency.ps1](linkedSecretDependency.ps1)  |
 | ----------- | --------------------------------------------------------------------------------|
 
-### Enable WebServices
+#### Enable WebServices
 
 1. Browse to **Admin > Configuration**
 1. On the **General** tab, make sure **Enable WebServices** is set to **Yes** 
 
-### Extensible Discovery
+#### Extensible Discovery
 
 1. Browse to **Admin > Discovery** and click the **Configuration** tab.
 1. Click **Discovery Configuration Options** and select **Extensible Discovery** from the drop-down list.
@@ -87,7 +95,7 @@ Navigate to **Admin | Scripts** and create a script for the Dependency Changer u
 
 
 
-### Configure Primary Parent Account
+#### Configure Primary Parent Account
 
 1. Browse to the primary parent account secret.
 1. Click Remote Password Changing tab
